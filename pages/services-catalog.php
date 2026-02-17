@@ -210,7 +210,7 @@
                     
                 </div>
             </div>
-           <div class="stickySection col-4 d-none d-lg-block my-3" style="">
+           <div class="stickySection col-4 d-none d-lg-block my-3">
                 
                 <ol class="list-group h-100 overflow-auto">
                     <li class="bg-success list-group-item d-flex justify-content-between align-items-center">
