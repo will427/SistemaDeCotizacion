@@ -1,3 +1,62 @@
+<?php
+    include_once '../classes/Service.class.php';
+  $servicesInformatica = [
+    new Service(1, "Mantenimiento PC", "Limpieza completa", 35, "Limpieza interna y optimización del sistema.", "Informática"),
+    new Service(2, "Instalación Windows", "Sistema original", 50, "Instalación de Windows con drivers.", "Informática"),
+    new Service(3, "Formateo", "Reinstalación", 45, "Borrado total y sistema nuevo.", "Informática"),
+    new Service(4, "Optimización", "Rendimiento", 30, "Mejora de velocidad del equipo.", "Informática"),
+    new Service(5, "Instalación Office", "Paquete Office", 25, "Instalación de Word, Excel y PowerPoint.", "Informática"),
+    new Service(6, "Actualización BIOS", "Firmware", 40, "Actualización segura del BIOS.", "Informática"),
+    new Service(7, "Clonación de disco", "Migración", 60, "Clonación de información a SSD o HDD.", "Informática"),
+    new Service(8, "Configuración impresora", "Drivers", 20, "Instalación y pruebas de impresora.", "Informática"),
+    new Service(9, "Recuperación de datos", "Básica", 50, "Recuperación de archivos eliminados.", "Informática"),
+    new Service(10, "Instalación software", "Programas", 15, "Instalación de programas solicitados.", "Informática"),
+    new Service(11, "Configuración usuario", "Perfil", 10, "Creación de usuarios y ajustes.", "Informática"),
+    new Service(12, "Diagnóstico PC", "Revisión", 20, "Evaluación completa del equipo.", "Informática"),
+];
+$servicesRedes = [
+    new Service(13, "Red doméstica", "WiFi", 60, "Configuración de red inalámbrica.", "Redes"),
+    new Service(14, "Configuración router", "Conectividad", 40, "Ajuste de parámetros del router.", "Redes"),
+    new Service(15, "Extensor WiFi", "Cobertura", 35, "Instalación de repetidor.", "Redes"),
+    new Service(16, "Cableado estructurado", "UTP", 80, "Instalación de cableado de red.", "Redes"),
+    new Service(17, "Servidor local", "LAN", 120, "Configuración básica de servidor.", "Redes"),
+    new Service(18, "Configuración switch", "Red interna", 50, "Configuración de switch.", "Redes"),
+    new Service(19, "Firewall de red", "Seguridad", 90, "Protección perimetral de red.", "Redes"),
+    new Service(20, "VPN", "Acceso remoto", 100, "Acceso remoto seguro.", "Redes"),
+    new Service(21, "Diagnóstico de red", "Problemas", 30, "Detección de fallas.", "Redes"),
+    new Service(22, "IP fija", "Configuración", 25, "Asignación de IP manual.", "Redes"),
+    new Service(23, "Configuración DNS", "Dominio", 45, "Configuración de DNS.", "Redes"),
+    new Service(24, "Monitoreo de red", "Tráfico", 70, "Supervisión de actividad.", "Redes"),
+];
+$servicesSeguridad = [
+    new Service(25, "Antivirus", "Protección", 20, "Instalación de antivirus.", "Seguridad"),
+    new Service(26, "Backup de datos", "Respaldo", 30, "Copias de seguridad.", "Seguridad"),
+    new Service(27, "Cifrado de archivos", "Privacidad", 60, "Protección de información sensible.", "Seguridad"),
+    new Service(28, "Control parental", "Familia", 25, "Restricciones de contenido.", "Seguridad"),
+    new Service(29, "Recuperación sistema", "Restauración", 50, "Restauración del sistema.", "Seguridad"),
+    new Service(30, "Firewall PC", "Protección", 40, "Configuración de firewall.", "Seguridad"),
+    new Service(31, "Eliminación de virus", "Malware", 35, "Limpieza de amenazas.", "Seguridad"),
+    new Service(32, "Gestión contraseñas", "Seguridad", 20, "Organización de contraseñas.", "Seguridad"),
+    new Service(33, "Auditoría seguridad", "Evaluación", 80, "Revisión completa de seguridad.", "Seguridad"),
+    new Service(34, "Actualizaciones", "Parches", 15, "Actualización de software.", "Seguridad"),
+    new Service(35, "Bloqueo USB", "Puertos", 25, "Bloqueo de dispositivos externos.", "Seguridad"),
+    new Service(36, "Monitoreo actividad", "Control", 60, "Seguimiento de acciones.", "Seguridad"),
+];
+$servicesWeb = [
+    new Service(37, "Página web básica", "Landing Page", 150, "Página informativa para negocios.", "Servicios"),
+    new Service(38, "Tienda online", "Ecommerce", 300, "Venta de productos en línea.", "Servicios"),
+    new Service(39, "Registro dominio", "Identidad digital", 25, "Compra de dominio web.", "Servicios"),
+    new Service(40, "Hosting", "Alojamiento", 60, "Hospedaje web anual.", "Servicios"),
+    new Service(41, "Correo empresarial", "Email", 80, "Configuración de correos corporativos.", "Servicios"),
+    new Service(42, "SEO", "Posicionamiento", 100, "Optimización en buscadores.", "Servicios"),
+    new Service(43, "Formulario web", "Contacto", 40, "Formulario de contacto.", "Servicios"),
+    new Service(44, "Mantenimiento web", "Soporte", 70, "Actualizaciones y soporte.", "Servicios"),
+    new Service(45, "Diseño UI", "Interfaz", 120, "Diseño visual del sitio.", "Servicios"),
+    new Service(46, "Certificado SSL", "Seguridad", 30, "HTTPS para el sitio.", "Servicios"),
+    new Service(47, "Integración pagos", "Pasarela", 90, "Pagos en línea.", "Servicios"),
+    new Service(48, "Chat web", "Atención", 50, "Chat en vivo para clientes.", "Servicios"),
+];
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -68,145 +127,29 @@
         <div class="row align-items-start">
             <div class="col-md-12 col-lg-8 my-2">
                 <div class="row justify-content-center">
-                    <div class="col-md-4 col-lg-6  col-xl-4 col-5 my-2">
-                        <div class="card border-1 rounded-3 shadow-sm">
-                            <div class="card-body text-center py-4">
-                                <h4 class="card-title">Starter Edition</h4>
-                                <p class="lead card-subtitle">eBook download only</p>
-                                <p class="display-5 my-4 text-primary fw-bold">$12.99</p>
-                                <p class="card-text mx-5 text-muted d-none d-lg-block">
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                </p>
-                                <a href="#" class="btn btn-outline-primary btn-lg mt-3">Buy now</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-lg-6  col-xl-4 col-5 my-2">
-                        <div class="card border-1 rounded-3 shadow-sm">
-                            <div class="card-body text-center py-4">
-                                <h4 class="card-title">Starter Edition</h4>
-                                <p class="lead card-subtitle">eBook download only</p>
-                                <p class="display-5 my-4 text-primary fw-bold">$12.99</p>
-                                <p class="card-text mx-5 text-muted d-none d-lg-block">
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                </p>
-                                <a href="#" class="btn btn-outline-primary btn-lg mt-3">Buy now</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-lg-6 col-xl-4 col-5 my-2">
-                        <div class="card border-1 rounded-3 shadow-sm">
-                            <div class="card-body text-center py-4">
-                                <h4 class="card-title">Starter Edition</h4>
-                                <p class="lead card-subtitle">eBook download only</p>
-                                <p class="display-5 my-4 text-primary fw-bold">$12.99</p>
-                                <p class="card-text mx-5 text-muted d-none d-lg-block">
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                </p>
-                                <a href="#" class="btn btn-outline-primary btn-lg mt-3">Buy now</a>
-                            </div>
-                        </div>
-                    </div><div class="col-md-4 col-lg-6 col-xl-4 col-5 my-2">
-                        <div class="card border-1 rounded-3 shadow-sm">
-                            <div class="card-body text-center py-4">
-                                <h4 class="card-title">Starter Edition</h4>
-                                <p class="lead card-subtitle">eBook download only</p>
-                                <p class="display-5 my-4 text-primary fw-bold">$12.99</p>
-                                <p class="card-text mx-5 text-muted d-none d-lg-block">
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                </p>
-                                <a href="#" class="btn btn-outline-primary btn-lg mt-3">Buy now</a>
-                            </div>
-                        </div>
-                    </div><div class="col-md-4 col-lg-6 col-xl-4 col-5 my-2">
-                        <div class="card border-1 rounded-3 shadow-sm">
-                            <div class="card-body text-center py-4">
-                                <h4 class="card-title">Starter Edition</h4>
-                                <p class="lead card-subtitle">eBook download only</p>
-                                <p class="display-5 my-4 text-primary fw-bold">$12.99</p>
-                                <p class="card-text mx-5 text-muted d-none d-lg-block">
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                </p>
-                                <a href="#" class="btn btn-outline-primary btn-lg mt-3">Buy now</a>
-                            </div>
-                        </div>
-                    </div><div class="col-md-4 col-lg-6 col-xl-4 col-5 my-2">
-                        <div class="card border-1 rounded-3 shadow-sm">
-                            <div class="card-body text-center py-4">
-                                <h4 class="card-title">Starter Edition</h4>
-                                <p class="lead card-subtitle">eBook download only</p>
-                                <p class="display-5 my-4 text-primary fw-bold">$12.99</p>
-                                <p class="card-text mx-5 text-muted d-none d-lg-block">
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                </p>
-                                <a href="#" class="btn btn-outline-primary btn-lg mt-3">Buy now</a>
-                            </div>
-                        </div>
-                    </div><div class="col-md-4 col-lg-6 col-xl-4 col-5 my-2">
-                        <div class="card border-1 rounded-3 shadow-sm">
-                            <div class="card-body text-center py-4">
-                                <h4 class="card-title">Starter Edition</h4>
-                                <p class="lead card-subtitle">eBook download only</p>
-                                <p class="display-5 my-4 text-primary fw-bold">$12.99</p>
-                                <p class="card-text mx-5 text-muted d-none d-lg-block">
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                </p>
-                                <a href="#" class="btn btn-outline-primary btn-lg mt-3">Buy now</a>
-                            </div>
-                        </div>
-                    </div><div class="col-md-4 col-lg-6 col-xl-4 col-5 my-2">
-                        <div class="card border-1 rounded-3 shadow-sm">
-                            <div class="card-body text-center py-4">
-                                <h4 class="card-title">Starter Edition</h4>
-                                <p class="lead card-subtitle">eBook download only</p>
-                                <p class="display-5 my-4 text-primary fw-bold">$12.99</p>
-                                <p class="card-text mx-5 text-muted d-none d-lg-block">
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                </p>
-                                <a href="#" class="btn btn-outline-primary btn-lg mt-3">Buy now</a>
-                            </div>
-                        </div>
-                    </div><div class="col-md-4 col-lg-6 col-xl-4 col-5 my-2">
-                        <div class="card border-1 rounded-3 shadow-sm">
-                            <div class="card-body text-center py-4">
-                                <h4 class="card-title">Starter Edition</h4>
-                                <p class="lead card-subtitle">eBook download only</p>
-                                <p class="display-5 my-4 text-primary fw-bold">$12.99</p>
-                                <p class="card-text mx-5 text-muted d-none d-lg-block">
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                </p>
-                                <a href="#" class="btn btn-outline-primary btn-lg mt-3">Buy now</a>
-                            </div>
-                        </div>
-                    </div><div class="col-md-4 col-lg-6 col-xl-4 col-5 my-2">
-                        <div class="card border-1 rounded-3 shadow-sm">
-                            <div class="card-body text-center py-4">
-                                <h4 class="card-title">Starter Edition</h4>
-                                <p class="lead card-subtitle">eBook download only</p>
-                                <p class="display-5 my-4 text-primary fw-bold">$12.99</p>
-                                <p class="card-text mx-5 text-muted d-none d-lg-block">
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                </p>
-                                <a href="#" class="btn btn-outline-primary btn-lg mt-3">Buy now</a>
-                            </div>
-                        </div>
-                    </div><div class="col-md-4 col-lg-6 col-xl-4 col-5 my-2">
-                        <div class="card border-1 rounded-3 shadow-sm">
-                            <div class="card-body text-center py-4">
-                                <h4 class="card-title">Starter Edition</h4>
-                                <p class="lead card-subtitle">eBook download only</p>
-                                <p class="display-5 my-4 text-primary fw-bold">$12.99</p>
-                                <p class="card-text mx-5 text-muted d-none d-lg-block">
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                </p>
-                                <a href="#" class="btn btn-outline-primary btn-lg mt-3">Buy now</a>
-                            </div>
-                        </div>
-                    </div>
                     
                    
+                    <?php
                     
-                                
+                        foreach($servicesInformatica as $service)
+                            {
+                                echo '
+                                <div class="col-md-4 col-lg-6 col-xl-4 col-5 my-2 d-flex">
+                                    <div class="card border-1 rounded-3 shadow-sm h-100 w-100">
+                                        <div class="card-body text-center py-3 align-items-center d-flex flex-column">
+                                            <h4 class="card-title">'.$service->getTitle().'</h4>
+                                            <p class="lead card-subtitle">'.$service->getSubtitle().'</p>
+                                            <p class="display-5 my-4 text-primary fw-bold">'.$service->getPrice().'</p>
+                                            <p class="card-text mx-5 text-muted d-none d-lg-block">
+                                                '.$service->getDescription().'
+                                            </p>
+                                            <a href="#" class="btn btn-outline-primary btn-lg mt-auto">Buy now</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                ';
+                            }
+                    ?>            
                     
                 </div>
             </div>
@@ -255,6 +198,6 @@
     </div>
     
 
-<script src="/assets/service.js"></script>
+<script src="../assets/service.js"></script>
 </body>
 </html>

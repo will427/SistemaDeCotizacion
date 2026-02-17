@@ -134,7 +134,12 @@ header .text-muted, header div {
 }
 .stickySection { position: sticky; top: 20px; }
 
-
+.card-text {
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* máximo 3 líneas */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
 /* iconos bootstrap */
 .bi.bi-cart-fill{
     font-size: large;
