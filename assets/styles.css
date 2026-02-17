@@ -8,6 +8,7 @@
     --sidebar-bg: #1e293b;       /* Slate intermedio */
     --body-bg: #f8fafc;          /* Blanco roto premium */
     --text-main: #334155;
+    --secondary-color: #7a8b64;    /* Para textos secundarios y elementos menos importantes */
 }
 
 body {
