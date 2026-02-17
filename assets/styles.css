@@ -268,3 +268,13 @@ header .text-muted, header div {
     z-index: 100;
    
 }
+
+.filtro{
+    background-color: transparent;
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color);
+    font-weight: 600;
+    border-radius: 20px;
+    padding: 0.5rem 1rem;
+    transition: all 0.3s ease;
+}

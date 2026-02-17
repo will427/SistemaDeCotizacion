@@ -1,3 +1,5 @@
+document.addEventListener("DOMContentLoaded", () => {
+
 const modal=document.querySelector('.modal');
 const modalC=document.querySelector('.modalc');
 const openModal=document.querySelector('.btn.btn-warning.btn-lg.px-60');
@@ -46,4 +48,6 @@ closeModalCalculos3.addEventListener('click',(e)=>{
     e.preventDefault();
     modalC.classList.remove('modal-show');
 });
- 
+
+   
+});

@@ -1,6 +1,6 @@
 <?php
     include_once '../classes/Service.class.php';
-  $servicesInformatica = [
+  $services= [
     new Service(1, "Mantenimiento PC", "Limpieza completa", 35, "Limpieza interna y optimización del sistema.", "Informática"),
     new Service(2, "Instalación Windows", "Sistema original", 50, "Instalación de Windows con drivers.", "Informática"),
     new Service(3, "Formateo", "Reinstalación", 45, "Borrado total y sistema nuevo.", "Informática"),
@@ -13,8 +13,6 @@
     new Service(10, "Instalación software", "Programas", 15, "Instalación de programas solicitados.", "Informática"),
     new Service(11, "Configuración usuario", "Perfil", 10, "Creación de usuarios y ajustes.", "Informática"),
     new Service(12, "Diagnóstico PC", "Revisión", 20, "Evaluación completa del equipo.", "Informática"),
-];
-$servicesRedes = [
     new Service(13, "Red doméstica", "WiFi", 60, "Configuración de red inalámbrica.", "Redes"),
     new Service(14, "Configuración router", "Conectividad", 40, "Ajuste de parámetros del router.", "Redes"),
     new Service(15, "Extensor WiFi", "Cobertura", 35, "Instalación de repetidor.", "Redes"),
@@ -27,8 +25,6 @@ $servicesRedes = [
     new Service(22, "IP fija", "Configuración", 25, "Asignación de IP manual.", "Redes"),
     new Service(23, "Configuración DNS", "Dominio", 45, "Configuración de DNS.", "Redes"),
     new Service(24, "Monitoreo de red", "Tráfico", 70, "Supervisión de actividad.", "Redes"),
-];
-$servicesSeguridad = [
     new Service(25, "Antivirus", "Protección", 20, "Instalación de antivirus.", "Seguridad"),
     new Service(26, "Backup de datos", "Respaldo", 30, "Copias de seguridad.", "Seguridad"),
     new Service(27, "Cifrado de archivos", "Privacidad", 60, "Protección de información sensible.", "Seguridad"),
@@ -41,8 +37,6 @@ $servicesSeguridad = [
     new Service(34, "Actualizaciones", "Parches", 15, "Actualización de software.", "Seguridad"),
     new Service(35, "Bloqueo USB", "Puertos", 25, "Bloqueo de dispositivos externos.", "Seguridad"),
     new Service(36, "Monitoreo actividad", "Control", 60, "Seguimiento de acciones.", "Seguridad"),
-];
-$servicesWeb = [
     new Service(37, "Página web básica", "Landing Page", 150, "Página informativa para negocios.", "Servicios"),
     new Service(38, "Tienda online", "Ecommerce", 300, "Venta de productos en línea.", "Servicios"),
     new Service(39, "Registro dominio", "Identidad digital", 25, "Compra de dominio web.", "Servicios"),
@@ -54,8 +48,35 @@ $servicesWeb = [
     new Service(45, "Diseño UI", "Interfaz", 120, "Diseño visual del sitio.", "Servicios"),
     new Service(46, "Certificado SSL", "Seguridad", 30, "HTTPS para el sitio.", "Servicios"),
     new Service(47, "Integración pagos", "Pasarela", 90, "Pagos en línea.", "Servicios"),
-    new Service(48, "Chat web", "Atención", 50, "Chat en vivo para clientes.", "Servicios"),
+    new Service(48, "Chat web", "Atención", 50, "Chat en vivo para clientes.", "Servicios")
 ];
+
+
+// ---------- AJAX ----------
+if (isset($_GET['ajax'])) {
+
+    $catSelected = $_GET['cat'] ?? 'Informática';
+
+    $filtered = array_filter($services, function($service) use ($catSelected) {
+        return $service->getCategory() === $catSelected;
+    });
+
+    $resultado = array_map(function($s) {
+        return [
+            "id" => $s->getId(),
+            "title" => $s->getTitle(),
+            "subtitle" => $s->getSubtitle(),
+            "price" => $s->getPrice(),
+            "description" => $s->getDescription(),
+            "category" => $s->getCategory()
+        ];
+    }, $filtered);
+
+    header('Content-Type: application/json');
+    echo json_encode(array_values($resultado));
+    exit;
+
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -112,46 +133,24 @@ $servicesWeb = [
     <div class="container-lg">
         <div class="">
             <ul class="navbar-nav d-flex flex-row justify-content-around text-center">
+                 <li class="nav-item mx-2">
+                    <button class="border-0 nav-link filtro" data-cat="Informática">Informática</button>
+                </li>
                 <li class="nav-item mx-2">
-                    <a class="nav-link gap" href="#">Catalogo</a>
-                </li><li class="nav-item mx-2">
-                    <a class="nav-link" href="#">Catalogo</a>
-                </li><li class="nav-item mx-2">
-                    <a class="nav-link" href="#">Catalogo</a>
-                </li><li class="nav-item mx-2">
-                    <a class="nav-link" href="#">Catalogo</a>
+                    <button class="border-0 nav-link filtro" data-cat="Redes">Redes</button>
+                </li>
+                <li class="nav-item mx-2">
+                    <button class="border-0 nav-link filtro" data-cat="Seguridad">Seguridad</button>
+                </li>
+                <li class="nav-item mx-2">
+                    <button class="border-0 nav-link filtro" data-cat="Servicios">Servicios</button>
                 </li>
             </ul>
         </div>
         <!--aqui iran las cartas-->
         <div class="row align-items-start">
             <div class="col-md-12 col-lg-8 my-2">
-                <div class="row justify-content-center">
-                    
-                   
-                    <?php
-                    
-                        foreach($servicesInformatica as $service)
-                            {
-                                echo '
-                                <div class="col-md-4 col-lg-6 col-xl-4 col-5 my-2 d-flex">
-                                    <div class="card border-1 rounded-3 shadow-sm h-100 w-100">
-                                        <div class="card-body text-center py-3 align-items-center d-flex flex-column">
-                                            <h4 class="card-title">'.$service->getTitle().'</h4>
-                                            <p class="lead card-subtitle">'.$service->getSubtitle().'</p>
-                                            <p class="display-5 my-4 text-primary fw-bold">'.$service->getPrice().'</p>
-                                            <p class="card-text mx-5 text-muted d-none d-lg-block">
-                                                '.$service->getDescription().'
-                                            </p>
-                                            <a href="#" class="btn btn-outline-primary btn-lg mt-auto">Buy now</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                ';
-                            }
-                    ?>            
-                    
-                </div>
+                <div class="row justify-content-center" id="contenedorServicios"></div>
             </div>
            <div class="stickySection col-4 d-none d-lg-block my-3">
                 
@@ -198,6 +197,7 @@ $servicesWeb = [
     </div>
     
 
+<script src="../assets/ajax.js"></script>
 <script src="../assets/service.js"></script>
 </body>
 </html>
