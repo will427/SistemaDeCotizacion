@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <?php
     include_once '../classes/Service.class.php';
   $servicesInformatica = [
@@ -58,8 +57,6 @@ $servicesWeb = [
     new Service(48, "Chat web", "Atención", 50, "Chat en vivo para clientes.", "Servicios"),
 ];
 ?>
-=======
->>>>>>> 005a2d9b90b89e4c48f8db14506f9ef76e41fe07
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -67,13 +64,10 @@ $servicesWeb = [
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
     <link rel="stylesheet" href="../assets/styles.css">
-<<<<<<< HEAD
-=======
     <!-- Bootstrap icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
     <!-- Font Awesome icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
->>>>>>> 005a2d9b90b89e4c48f8db14506f9ef76e41fe07
     <title>Document</title>
 </head>
 <body>
@@ -81,11 +75,6 @@ $servicesWeb = [
     <header class="m-2 ">
         <div class="container-lg  justify-content-between d-flex align-items-center">
             <h1 class="">Titulo</h1>
-<<<<<<< HEAD
-            <div class="">carrito</div>
-        </div>
-    </header>
-=======
             <div class=""><button type="button" class="btn btn-warning btn-lg px-60"><i class="bi bi-cart-fill"></i></button></div>
         </div>
     </header>
@@ -119,7 +108,6 @@ $servicesWeb = [
     </div>
  </section>
 <!--fin del modal -->    
->>>>>>> 005a2d9b90b89e4c48f8db14506f9ef76e41fe07
 
     <div class="container-lg">
         <div class="">
@@ -139,177 +127,33 @@ $servicesWeb = [
         <div class="row align-items-start">
             <div class="col-md-12 col-lg-8 my-2">
                 <div class="row justify-content-center">
-<<<<<<< HEAD
+                    
+                   
                     <?php
                     
                         foreach($servicesInformatica as $service)
                             {
                                 echo '
-    <div class="col-md-4 col-lg-6 col-xl-4 col-5 my-2 d-flex">
-        <div class="card border-1 rounded-3 shadow-sm h-100 w-100">
-            <div class="card-body text-center py-3 align-items-center d-flex flex-column">
-                <h4 class="card-title">'.$service->getTitle().'</h4>
-                <p class="lead card-subtitle">'.$service->getSubtitle().'</p>
-                <p class="display-5 my-4 text-primary fw-bold">'.$service->getPrice().'</p>
-                <p class="card-text mx-5 text-muted d-none d-lg-block">
-                    '.$service->getDescription().'
-                </p>
-                <a href="#" class="btn btn-outline-primary btn-lg mt-auto">Buy now</a>
-            </div>
-        </div>
-    </div>
-    ';
+                                <div class="col-md-4 col-lg-6 col-xl-4 col-5 my-2 d-flex">
+                                    <div class="card border-1 rounded-3 shadow-sm h-100 w-100">
+                                        <div class="card-body text-center py-3 align-items-center d-flex flex-column">
+                                            <h4 class="card-title">'.$service->getTitle().'</h4>
+                                            <p class="lead card-subtitle">'.$service->getSubtitle().'</p>
+                                            <p class="display-5 my-4 text-primary fw-bold">'.$service->getPrice().'</p>
+                                            <p class="card-text mx-5 text-muted d-none d-lg-block">
+                                                '.$service->getDescription().'
+                                            </p>
+                                            <a href="#" class="btn btn-outline-primary btn-lg mt-auto">Buy now</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                ';
                             }
-                    ?>
-=======
-                    <div class="col-md-4 col-lg-6  col-xl-4 col-5 my-2">
-                        <div class="card border-1 rounded-3 shadow-sm">
-                            <div class="card-body text-center py-4">
-                                <h4 class="card-title">Starter Edition</h4>
-                                <p class="lead card-subtitle">eBook download only</p>
-                                <p class="display-5 my-4 text-primary fw-bold">$12.99</p>
-                                <p class="card-text mx-5 text-muted d-none d-lg-block">
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                </p>
-                                <a href="#" class="btn btn-outline-primary btn-lg mt-3">Buy now</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-lg-6  col-xl-4 col-5 my-2">
-                        <div class="card border-1 rounded-3 shadow-sm">
-                            <div class="card-body text-center py-4">
-                                <h4 class="card-title">Starter Edition</h4>
-                                <p class="lead card-subtitle">eBook download only</p>
-                                <p class="display-5 my-4 text-primary fw-bold">$12.99</p>
-                                <p class="card-text mx-5 text-muted d-none d-lg-block">
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                </p>
-                                <a href="#" class="btn btn-outline-primary btn-lg mt-3">Buy now</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-lg-6 col-xl-4 col-5 my-2">
-                        <div class="card border-1 rounded-3 shadow-sm">
-                            <div class="card-body text-center py-4">
-                                <h4 class="card-title">Starter Edition</h4>
-                                <p class="lead card-subtitle">eBook download only</p>
-                                <p class="display-5 my-4 text-primary fw-bold">$12.99</p>
-                                <p class="card-text mx-5 text-muted d-none d-lg-block">
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                </p>
-                                <a href="#" class="btn btn-outline-primary btn-lg mt-3">Buy now</a>
-                            </div>
-                        </div>
-                    </div><div class="col-md-4 col-lg-6 col-xl-4 col-5 my-2">
-                        <div class="card border-1 rounded-3 shadow-sm">
-                            <div class="card-body text-center py-4">
-                                <h4 class="card-title">Starter Edition</h4>
-                                <p class="lead card-subtitle">eBook download only</p>
-                                <p class="display-5 my-4 text-primary fw-bold">$12.99</p>
-                                <p class="card-text mx-5 text-muted d-none d-lg-block">
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                </p>
-                                <a href="#" class="btn btn-outline-primary btn-lg mt-3">Buy now</a>
-                            </div>
-                        </div>
-                    </div><div class="col-md-4 col-lg-6 col-xl-4 col-5 my-2">
-                        <div class="card border-1 rounded-3 shadow-sm">
-                            <div class="card-body text-center py-4">
-                                <h4 class="card-title">Starter Edition</h4>
-                                <p class="lead card-subtitle">eBook download only</p>
-                                <p class="display-5 my-4 text-primary fw-bold">$12.99</p>
-                                <p class="card-text mx-5 text-muted d-none d-lg-block">
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                </p>
-                                <a href="#" class="btn btn-outline-primary btn-lg mt-3">Buy now</a>
-                            </div>
-                        </div>
-                    </div><div class="col-md-4 col-lg-6 col-xl-4 col-5 my-2">
-                        <div class="card border-1 rounded-3 shadow-sm">
-                            <div class="card-body text-center py-4">
-                                <h4 class="card-title">Starter Edition</h4>
-                                <p class="lead card-subtitle">eBook download only</p>
-                                <p class="display-5 my-4 text-primary fw-bold">$12.99</p>
-                                <p class="card-text mx-5 text-muted d-none d-lg-block">
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                </p>
-                                <a href="#" class="btn btn-outline-primary btn-lg mt-3">Buy now</a>
-                            </div>
-                        </div>
-                    </div><div class="col-md-4 col-lg-6 col-xl-4 col-5 my-2">
-                        <div class="card border-1 rounded-3 shadow-sm">
-                            <div class="card-body text-center py-4">
-                                <h4 class="card-title">Starter Edition</h4>
-                                <p class="lead card-subtitle">eBook download only</p>
-                                <p class="display-5 my-4 text-primary fw-bold">$12.99</p>
-                                <p class="card-text mx-5 text-muted d-none d-lg-block">
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                </p>
-                                <a href="#" class="btn btn-outline-primary btn-lg mt-3">Buy now</a>
-                            </div>
-                        </div>
-                    </div><div class="col-md-4 col-lg-6 col-xl-4 col-5 my-2">
-                        <div class="card border-1 rounded-3 shadow-sm">
-                            <div class="card-body text-center py-4">
-                                <h4 class="card-title">Starter Edition</h4>
-                                <p class="lead card-subtitle">eBook download only</p>
-                                <p class="display-5 my-4 text-primary fw-bold">$12.99</p>
-                                <p class="card-text mx-5 text-muted d-none d-lg-block">
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                </p>
-                                <a href="#" class="btn btn-outline-primary btn-lg mt-3">Buy now</a>
-                            </div>
-                        </div>
-                    </div><div class="col-md-4 col-lg-6 col-xl-4 col-5 my-2">
-                        <div class="card border-1 rounded-3 shadow-sm">
-                            <div class="card-body text-center py-4">
-                                <h4 class="card-title">Starter Edition</h4>
-                                <p class="lead card-subtitle">eBook download only</p>
-                                <p class="display-5 my-4 text-primary fw-bold">$12.99</p>
-                                <p class="card-text mx-5 text-muted d-none d-lg-block">
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                </p>
-                                <a href="#" class="btn btn-outline-primary btn-lg mt-3">Buy now</a>
-                            </div>
-                        </div>
-                    </div><div class="col-md-4 col-lg-6 col-xl-4 col-5 my-2">
-                        <div class="card border-1 rounded-3 shadow-sm">
-                            <div class="card-body text-center py-4">
-                                <h4 class="card-title">Starter Edition</h4>
-                                <p class="lead card-subtitle">eBook download only</p>
-                                <p class="display-5 my-4 text-primary fw-bold">$12.99</p>
-                                <p class="card-text mx-5 text-muted d-none d-lg-block">
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                </p>
-                                <a href="#" class="btn btn-outline-primary btn-lg mt-3">Buy now</a>
-                            </div>
-                        </div>
-                    </div><div class="col-md-4 col-lg-6 col-xl-4 col-5 my-2">
-                        <div class="card border-1 rounded-3 shadow-sm">
-                            <div class="card-body text-center py-4">
-                                <h4 class="card-title">Starter Edition</h4>
-                                <p class="lead card-subtitle">eBook download only</p>
-                                <p class="display-5 my-4 text-primary fw-bold">$12.99</p>
-                                <p class="card-text mx-5 text-muted d-none d-lg-block">
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                </p>
-                                <a href="#" class="btn btn-outline-primary btn-lg mt-3">Buy now</a>
-                            </div>
-                        </div>
-                    </div>
-                    
-                   
->>>>>>> 005a2d9b90b89e4c48f8db14506f9ef76e41fe07
-                    
-                                
+                    ?>            
                     
                 </div>
             </div>
-<<<<<<< HEAD
-           <div class="stickySection col-4 d-none d-lg-block my-3" style="">
-=======
            <div class="stickySection col-4 d-none d-lg-block my-3">
->>>>>>> 005a2d9b90b89e4c48f8db14506f9ef76e41fe07
                 
                 <ol class="list-group h-100 overflow-auto">
                     <li class="bg-success list-group-item d-flex justify-content-between align-items-center">
@@ -323,11 +167,7 @@ $servicesWeb = [
                         <div class="fw-bold">primer item</div>
                         Cras justo odio
                     </div>
-<<<<<<< HEAD
-                    <button class="btn btn-sm bg-primary rounded">ver calculos</button>    
-=======
                     <button class="btn btn-sm bg-primary rounded c">ver calculos</button>    
->>>>>>> 005a2d9b90b89e4c48f8db14506f9ef76e41fe07
                     </li>
 
                     <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -335,11 +175,7 @@ $servicesWeb = [
                         <div class="fw-bold">segundo item</div>
                         Cras justo odio
                     </div>
-<<<<<<< HEAD
-                    <button class="btn btn-sm bg-primary rounded">ver calculos</button>    
-=======
                     <button class="btn btn-sm bg-primary rounded c2">ver calculos</button>    
->>>>>>> 005a2d9b90b89e4c48f8db14506f9ef76e41fe07
                     </li>
 
                     <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -347,17 +183,10 @@ $servicesWeb = [
                         <div class="fw-bold">tercer item</div>
                         Cras justo odio
                     </div>
-<<<<<<< HEAD
-                    <button class="btn btn-sm bg-primary rounded">ver calculos</button>    
-                    </li>
-                    <li class="border-0 my-3 d-flex justify-content-end align-items-center">
-                    <button class="btn btn-sm  bg-success rounded">ver items en carrito</button>    
-=======
                     <button class="btn btn-sm bg-primary rounded c3">ver calculos</button>    
                     </li>
                     <li class="border-0 my-3 d-flex justify-content-end align-items-center">
                     <button class="btn btn-sm  bg-success rounded text-center py-2 px-2">ver items en carrito</button>    
->>>>>>> 005a2d9b90b89e4c48f8db14506f9ef76e41fe07
                     </li>
                 </ol>
 
@@ -367,13 +196,8 @@ $servicesWeb = [
         
 
     </div>
-<<<<<<< HEAD
-
-    
-=======
     
 
-<script src="/assets/service.js"></script>
->>>>>>> 005a2d9b90b89e4c48f8db14506f9ef76e41fe07
+<script src="../assets/service.js"></script>
 </body>
 </html>
