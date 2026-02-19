@@ -144,6 +144,7 @@ if (isset($_GET['onlyData'])) {
     <div class="d-flex justify-content-between fs-4">
       <strong>Total:</strong> <span id="total">0</span>
     </div>
+    
   </div>
 </section>
 <!--fin del modal -->    
@@ -172,38 +173,21 @@ if (isset($_GET['onlyData'])) {
             </div>
            <div class="stickySection col-4 d-none d-lg-block my-3">
                 
-                <ol class="list-group h-100 overflow-auto">
+                <ol class="list-group h-100 overflow-auto" id="listaSeleccionados">
                     <li class="bg-success list-group-item d-flex justify-content-between align-items-center">
                     <div class="ms-2 me-auto">
                         <div class="fw-bold">Servicios seleccionados</div>
                     </div>
                     </li>
 
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <div class="ms-2 me-auto">
-                        <div class="fw-bold">primer item</div>
-                        Cras justo odio
-                    </div>
-                    <button class="btn btn-sm bg-primary rounded c">ver calculos</button>    
-                    </li>
+                 
+                    <div id="contenedorItems"></div>
 
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <div class="ms-2 me-auto">
-                        <div class="fw-bold">segundo item</div>
-                        Cras justo odio
-                    </div>
-                    <button class="btn btn-sm bg-primary rounded c2">ver calculos</button>    
-                    </li>
-
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <div class="ms-2 me-auto">
-                        <div class="fw-bold">tercer item</div>
-                        Cras justo odio
-                    </div>
-                    <button class="btn btn-sm bg-primary rounded c3">ver calculos</button>    
-                    </li>
                     <li class="border-0 my-3 d-flex justify-content-end align-items-center">
-                    <button class="btn btn-sm  bg-success rounded text-center py-2 px-2">ver items en carrito</button>    
+                        <button id="btnVerCarrito"
+                            class="btn btn-sm bg-success rounded text-center py-2 px-2 d-none">
+                            Ver items en carrito
+                        </button>    
                     </li>
                 </ol>
 
@@ -217,5 +201,7 @@ if (isset($_GET['onlyData'])) {
 
 <script src="../assets/ajax.js"></script>
 <script src="../assets/service.js"></script>
+<script src="../assets/remove-from-cart.js"></script>
+
 </body>
 </html>
