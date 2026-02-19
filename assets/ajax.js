@@ -24,7 +24,7 @@ function renderServicios(servicios) {
                                             <p class="card-text mx-5 text-muted d-none d-lg-block">
                                                 ${service.description}
                                             </p>
-                                            <a href="#" class="btn btn-outline-primary btn-lg mt-auto" onclick="addToCart(${service.id}); return false;">Buy now</a>
+                                            <a href="#" class="btn btn-outline-primary btn-lg mt-auto" onclick="addToCart(${service.id}); return false;">agregar</a>
                                         </div>
                                     </div>
                                 </div>`;
@@ -51,9 +51,9 @@ function addToCart(id){
     .then(res => res.json())
     .then(data => {
         carrito = data.cart;
-
+//helllo
         renderCarrito();
-
+        renderSeleccionados();
         document.getElementById("subtotal").innerText = "$" + data.subtotal.toFixed(2);
         document.getElementById("iva").innerText = "$" + data.iva.toFixed(2);
         document.getElementById("total").innerText = "$" + data.total.toFixed(2);
@@ -72,20 +72,58 @@ function renderCarrito() {
         const sub = item.precio * item.cantidad;
 
         contenedor.innerHTML += `
-            <div class="d-flex justify-content-between align-items-center border-bottom py-2">
-                <div>
-                    <strong>${item.nombre}</strong><br>
-                    $${item.precio} x 
-                    <input type="number" min="1" max="10" value="${item.cantidad}"
-                        onchange="updateQty(${item.id}, this.value)"
-                        class="form-control d-inline-block w-25">
-                </div>
-                <span>$${sub.toFixed(2)}</span>
-            </div>
-        `;
+    <div class="d-flex justify-content-between align-items-center border-bottom py-2">
+        <div>
+            <strong>${item.nombre}</strong><br>
+            $${item.precio} x 
+            <input type="number" min="1" max="10" value="${item.cantidad}"
+                onchange="updateQty(${item.id}, this.value)"
+                class="form-control d-inline-block w-25">
+        </div>
+
+        <div class="text-end">
+            <span>$${sub.toFixed(2)}</span><br>
+            <button class="btn btn-sm btn-danger mt-1"
+                onclick="removeFromCart(${item.id})">
+                Eliminar
+            </button>
+        </div>
+    </div>
+`;
     });
 }
+function renderSeleccionados() {
 
+    const contenedor = document.getElementById("contenedorItems");
+    const btn = document.getElementById("btnVerCarrito");
+
+    contenedor.innerHTML = "";
+
+    const items = Object.values(carrito);
+
+    if (items.length === 0) {
+        btn.classList.add("d-none");
+        return;
+    }
+
+    items.forEach(item => {
+        contenedor.innerHTML += `
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <div class="ms-2 me-auto">
+                    <div class="fw-bold">
+                        ${item.nombre}
+                        <span class="badge bg-primary rounded-pill">
+                            x${item.cantidad}
+                        </span>
+                    </div>
+                    $${item.precio}
+                </div>
+            </li>
+        `;
+    });
+
+    btn.classList.remove("d-none");
+}
 
 function abrirModal(){
     document.getElementById("modalCarrito").classList.add("show");
@@ -119,3 +157,38 @@ function updateQty(id, qty){
 }
 
 
+function removeFromCart(id){
+    fetch('../api/remove-from-cart.php', {
+        method: 'POST',
+        headers: {'Content-Type':'application/x-www-form-urlencoded'},
+        body: `id=${id}`
+    })
+    .then(res => res.json())
+    .then(data => {
+        carrito = data.cart;
+
+        renderCarrito();
+        renderSeleccionados();
+
+        document.getElementById("subtotal").innerText = "$" + data.subtotal.toFixed(2);
+        document.getElementById("iva").innerText = "$" + data.iva.toFixed(2);
+        document.getElementById("total").innerText = "$" + data.total.toFixed(2);
+    })
+    .catch(err => console.error("ERROR:", err));
+}
+function cargarCarritoInicial() {
+    fetch('../api/get-list-items.php')
+        .then(res => res.json())
+        .then(data => {
+            carrito = data.cart;
+
+            renderSeleccionados();
+            renderCarrito();
+
+            document.getElementById("subtotal").innerText = "$" + data.subtotal.toFixed(2);
+            document.getElementById("iva").innerText = "$" + data.iva.toFixed(2);
+            document.getElementById("total").innerText = "$" + data.total.toFixed(2);
+        })
+        .catch(err => console.error("Error cargando carrito:", err));
+}
+cargarCarritoInicial();
