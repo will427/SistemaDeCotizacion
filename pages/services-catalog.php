@@ -77,7 +77,11 @@ if (isset($_GET['ajax'])) {
     exit;
 
 }
+if (isset($_GET['onlyData'])) {
+    return;
+}
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -96,7 +100,7 @@ if (isset($_GET['ajax'])) {
     <header class="m-2 ">
         <div class="container-lg  justify-content-between d-flex align-items-center">
             <h1 class="">Titulo</h1>
-            <div class=""><button type="button" class="btn btn-warning btn-lg px-60"><i class="bi bi-cart-fill"></i></button></div>
+            <div class=""><button type="button" class="btn btn-warning btn-lg px-60" id="abrirCarrito"><i class="bi bi-cart-fill"></i></button></div>
         </div>
     </header>
    
@@ -122,12 +126,26 @@ if (isset($_GET['ajax'])) {
         </div>
      </section>
 
- <section class="modal">
-    <div class="carrito">
-        <h2>Carrito de Compras</h2>
-        <div class="close"><i class="bi bi-x-circle-fill"></i></div>      
+<section class="modal" id="modalCarrito">
+  <div class="carrito">
+    <h2>Carrito de Compras</h2>
+    <div class="close" id="cerrarModal">
+      <i class="bi bi-x-circle-fill"></i>
     </div>
- </section>
+    <div id="listaCarrito"></div>
+
+    <hr>
+    <div class="d-flex justify-content-between">
+      <strong>Subtotal:</strong> <span id="subtotal">0</span>
+    </div>
+    <div class="d-flex justify-content-between">
+      <strong>IVA (13%):</strong> <span id="iva">0</span>
+    </div>
+    <div class="d-flex justify-content-between fs-4">
+      <strong>Total:</strong> <span id="total">0</span>
+    </div>
+  </div>
+</section>
 <!--fin del modal -->    
 
     <div class="container-lg">
