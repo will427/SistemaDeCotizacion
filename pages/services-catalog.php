@@ -105,27 +105,6 @@ if (isset($_GET['onlyData'])) {
     </header>
    
 <!-- Modal -->
-     <section class="modalc3">
-        <div class="calculo">
-           <h2>Calculos</h2>
-           <button type="button" class="btn btn-warning">Cerrar</button>
-        </div>
-     </section>
-
-         <section class="modalc2">
-        <div class="calculo">
-           <h2>Calculos</h2>
-           <button type="button" class="btn btn-primary">Cerrar</button>
-        </div>
-     </section>
-
-    <section class="modalc">
-        <div class="calculo">
-           <h2>Calculos</h2>
-           <button type="button" class="btn btn-success">Cerrar</button>
-        </div>
-     </section>
-
 <section class="modal" id="modalCarrito">
   <div class="carrito">
     <h2>Carrito de Compras</h2>

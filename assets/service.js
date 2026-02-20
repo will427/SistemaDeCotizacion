@@ -1,15 +1,9 @@
 document.addEventListener("DOMContentLoaded", () => {
 
 const modal=document.querySelector('.modal');
-const modalC=document.querySelector('.modalc');
 const openModal=document.querySelector('.btn.btn-warning.btn-lg.px-60');
 const closeModal=document.querySelector('.close');
-const openModalCalculos=document.querySelector('.btn.btn-sm.bg-primary.rounded.c');
-const closeModalCalculos=document.querySelector('.btn.btn-warning');
-const openModalCalculos2=document.querySelector('.btn.btn-sm.bg-primary.rounded.c2');
-const closeModalCalculos2=document.querySelector('.btn.btn-primary');
-const openModalCalculos3=document.querySelector('.btn.btn-sm.bg-primary.rounded.c3');
-const closeModalCalculos3=document.querySelector('.btn.btn-success');
+const openModal2=document.querySelector('.btn.btn-sm.bg-success.rounded.text-center.py-2.px-2.d-none');
 
 
 openModal.addEventListener('click',()=>{
@@ -21,33 +15,9 @@ closeModal.addEventListener('click',(e)=>{
     modal.classList.remove('modal-show');
 });
 
-openModalCalculos.addEventListener('click',()=>{
-    modalC.classList.add('modal-show');
+openModal2.addEventListener('click',()=>{
+    modal.classList.add('modal-show');
+
 });
 
-closeModalCalculos.addEventListener('click',(e)=>{
-    e.preventDefault();
-    modalC.classList.remove('modal-show');
-});
-
-openModalCalculos2.addEventListener('click',()=>{
-    modalC.classList.add('modal-show');
-}
-);
-
-closeModalCalculos2.addEventListener('click',(e)=>{
-    e.preventDefault();
-    modalC.classList.remove('modal-show');
-});
-
-openModalCalculos3.addEventListener('click',()=>{
-    modalC.classList.add('modal-show');
-});
-
-closeModalCalculos3.addEventListener('click',(e)=>{
-    e.preventDefault();
-    modalC.classList.remove('modal-show');
-});
-
-   
-});
+})
