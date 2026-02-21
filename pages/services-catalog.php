@@ -100,7 +100,13 @@ if (isset($_GET['onlyData'])) {
     <header class="m-2 ">
         <div class="container-lg  justify-content-between d-flex align-items-center">
             <h1 class="">Titulo</h1>
-            <div class=""><button type="button" class="btn btn-warning btn-lg px-60" id="abrirCarrito"><i class="bi bi-cart-fill"></i></button></div>
+            <div class="">
+                <button type="button" class="btn btn-warning btn-lg px-60" id="abrirCarrito">
+                    <i class="bi bi-cart-fill"></i>
+                    <span id="contadorCarrito"
+                    class=" translate-middle badge rounded-pill  d-none p-0 m-0">0</span>
+                </button>
+            </div>
         </div>
     </header>
    
@@ -126,7 +132,55 @@ if (isset($_GET['onlyData'])) {
     <div class="d-flex justify-content-between fs-4">
       <strong>Total:</strong> <span id="total">0</span>
     </div>
-    
+    <div class="mt-3">
+    <button id="btnCotizar" class="btn btn-primary w-100">
+        Cotizar
+    </button>
+    </div>
+  </div>
+</section>
+<section class="modal" id="modalCotizacion">
+  <div class="carrito">
+    <h2>Datos del Cliente</h2>
+    <div class="close" id="cerrarModalCotizacion">
+      <i class="bi bi-x-circle-fill"></i>
+    </div>
+
+    <form id="formCotizacion">
+      <div class="mb-3">
+        <label class="form-label">Nombre</label>
+        <input type="text" name="nombre" class="form-control" required>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Empresa</label>
+        <input type="text" name="empresa" class="form-control" required>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Email</label>
+        <input type="email" name="email" class="form-control" required>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Teléfono</label>
+        <input type="text" name="telefono" class="form-control" required>
+      </div>
+
+      <button type="submit" class="btn btn-success w-100">
+        Generar Cotización
+      </button>
+    </form>
+  </div>
+</section>
+<section class="modal" id="modalConfirmacion">
+  <div class="carrito">
+    <h2>Cotización Generada</h2>
+    <div class="close" id="cerrarModalConfirmacion">
+      <i class="bi bi-x-circle-fill"></i>
+    </div>
+
+    <div id="detalleConfirmacion"></div>
   </div>
 </section>
 <!--fin del modal -->    
