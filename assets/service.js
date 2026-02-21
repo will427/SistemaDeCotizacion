@@ -1,23 +1,69 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-const modal=document.querySelector('.modal');
-const openModal=document.querySelector('.btn.btn-warning.btn-lg.px-60');
-const closeModal=document.querySelector('.close');
-const openModal2=document.querySelector('.btn.btn-sm.bg-success.rounded.text-center.py-2.px-2.d-none');
+    const modalCarrito = document.getElementById("modalCarrito");
+    const modalCotizacion = document.getElementById("modalCotizacion");
 
+    const openModal = document.querySelector('.btn.btn-warning.btn-lg.px-60');
+    const openModal2 = document.getElementById("btnVerCarrito");
+    const btnCotizar = document.getElementById("btnCotizar");
 
-openModal.addEventListener('click',()=>{
-   modal.classList.add('modal-show');
-});
+    const closeCarrito = document.getElementById("cerrarModal");
+    const closeCotizacion = document.getElementById("cerrarModalCotizacion");
 
-closeModal.addEventListener('click',(e)=>{
+    function abrir(modal){
+        if(modal) modal.classList.add("modal-show");
+    }
+
+    function cerrar(modal){
+        if(modal) modal.classList.remove("modal-show");
+    }
+
+    // ===== ABRIR CARRITO DESDE ICONO =====
+    openModal?.addEventListener("click", () => {
+        abrir(modalCarrito);
+    });
+
+    // ===== ABRIR CARRITO DESDE BOTÓN LATERAL =====
+    openModal2?.addEventListener("click", () => {
+        abrir(modalCarrito);
+    });
+
+    // ===== CERRAR CARRITO =====
+    closeCarrito?.addEventListener("click", (e) => {
+        e.preventDefault();
+        cerrar(modalCarrito);
+    });
+
+   document.getElementById("btnCotizar")?.addEventListener("click", function (e) {
+
     e.preventDefault();
-    modal.classList.remove('modal-show');
+
+    let total = parseFloat(document.getElementById("total").innerText.replace("$", ""));
+    let cantidadItems = Object.values(carrito).length;
+
+    if (cantidadItems === 0) {
+        alert("No puedes cotizar sin items en el carrito.");
+        return;
+    }
+
+    if (total < 100) {
+        alert("El total debe ser mayor o igual a $100 para cotizar.");
+        return;
+    }
+
+    // cerrar carrito
+    document.getElementById("modalCarrito").classList.remove("modal-show");
+
+    // abrir cotización
+    document.getElementById("modalCotizacion").classList.add("modal-show");
+
 });
 
-openModal2.addEventListener('click',()=>{
-    modal.classList.add('modal-show');
+    // ===== CERRAR COTIZACIÓN =====
+    closeCotizacion?.addEventListener("click", (e) => {
+        e.preventDefault();
+        cerrar(modalCotizacion);
+        abrir(modalCarrito); // vuelve al carrito sin romper nada
+    });
 
 });
-
-})
