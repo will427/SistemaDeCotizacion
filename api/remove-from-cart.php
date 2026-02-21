@@ -41,3 +41,4 @@ echo json_encode([
     "iva" => $resultado["iva"],
     "total" => $resultado["total"]
 ]);
+
