@@ -54,6 +54,7 @@ function addToCart(id){
 //helllo
         renderCarrito();
         renderSeleccionados();
+        actualizarContadorCarrito();
         document.getElementById("subtotal").innerText = "$" + data.subtotal.toFixed(2);
         document.getElementById("iva").innerText = "$" + data.iva.toFixed(2);
         document.getElementById("total").innerText = "$" + data.total.toFixed(2);
@@ -127,6 +128,27 @@ function renderSeleccionados() {
 
     btn.classList.remove("d-none");
 }
+function actualizarContadorCarrito(){
+
+    let totalItems = 0;
+
+    Object.values(carrito).forEach(item => {
+        totalItems += parseInt(item.cantidad);
+    });
+
+    const badge = document.getElementById("contadorCarrito");
+
+    if(badge){
+        badge.innerText = totalItems;
+
+        // ocultar si está vacío
+        if(totalItems === 0){
+            badge.classList.add("d-none");
+        } else {
+            badge.classList.remove("d-none");
+        }
+    }
+}
 
 function abrirModal(){
     document.getElementById("modalCarrito").classList.add("show");
@@ -137,6 +159,7 @@ document.getElementById("cerrarModal").addEventListener("click", () => {
 });
 
 function updateQty(id, qty){
+
     fetch('../api/update-cart.php', {
         method: 'POST',
         headers: {'Content-Type':'application/x-www-form-urlencoded'},
@@ -144,21 +167,26 @@ function updateQty(id, qty){
     })
     .then(res => res.json())
     .then(data => {
+
         carrito = data.cart;
         renderCarrito();
+
+        renderSeleccionados();
+        actualizarContadorCarrito();
 
         const sub = document.getElementById("subtotal");
         const iva = document.getElementById("iva");
         const total = document.getElementById("total");
+        const descuento = document.getElementById("descuento");
 
-        if (sub && iva && total) {
-            sub.innerText = "$" + data.subtotal.toFixed(2);
-            iva.innerText = "$" + data.iva.toFixed(2);
-            total.innerText = "$" + data.total.toFixed(2);
-        }
-    });
+        if (sub) sub.innerText = "$" + data.subtotal.toFixed(2);
+        if (iva) iva.innerText = "$" + data.iva.toFixed(2);
+        if (total) total.innerText = "$" + data.total.toFixed(2);
+        if (descuento) descuento.innerText = "$" + data.descuento.toFixed(2);
+
+    })
+    .catch(err => console.error("ERROR UPDATE:", err));
 }
-
 
 function removeFromCart(id){
     fetch('../api/remove-from-cart.php', {
@@ -172,6 +200,7 @@ function removeFromCart(id){
 
         renderCarrito();
         renderSeleccionados();
+        actualizarContadorCarrito();
 
         document.getElementById("subtotal").innerText = "$" + data.subtotal.toFixed(2);
         document.getElementById("iva").innerText = "$" + data.iva.toFixed(2);
@@ -187,6 +216,7 @@ function cargarCarritoInicial() {
 
             renderSeleccionados();
             renderCarrito();
+            actualizarContadorCarrito();
 
             document.getElementById("subtotal").innerText = "$" + data.subtotal.toFixed(2);
             document.getElementById("iva").innerText = "$" + data.iva.toFixed(2);
@@ -195,3 +225,81 @@ function cargarCarritoInicial() {
         .catch(err => console.error("Error cargando carrito:", err));
 }
 cargarCarritoInicial();
+
+document.getElementById("formCotizacion").addEventListener("submit", function(e){
+    e.preventDefault();
+
+    const formData = new FormData(this);
+
+    fetch('../api/process-quote.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(res => res.json())
+    .then(data => {
+
+        if(data.error){
+            alert(data.error);
+            return;
+        }
+
+        let itemsHTML = "";
+
+        Object.values(data.items).forEach(item => {
+            itemsHTML += `
+                <div class="d-flex justify-content-between border-bottom py-1">
+                    <span>${item.nombre} (x${item.cantidad})</span>
+                    <span>$${(item.precio * item.cantidad).toFixed(2)}</span>
+                </div>
+            `;
+        });
+
+        document.getElementById("detalleConfirmacion").innerHTML = `
+            <p><strong>Código:</strong> ${data.codigo}</p>
+            <p><strong>Cliente:</strong> ${data.nombre}</p>
+            <p><strong>Empresa:</strong> ${data.empresa}</p>
+            <p><strong>Email:</strong> ${data.email}</p>
+            <p><strong>Teléfono:</strong> ${data.telefono}</p>
+            <p><strong>Fecha generación:</strong> ${data.fecha_generacion}</p>
+            <p><strong>Válida hasta:</strong> ${data.fecha_validez}</p>
+            <hr>
+            ${itemsHTML}
+            <hr>
+            <p><strong>Subtotal:</strong> $${data.subtotal}</p>
+            <p><strong>Descuento:</strong> $${data.descuento}</p>
+            <p><strong>IVA:</strong> $${data.iva}</p>
+            <p class="fs-4"><strong>Total:</strong> $${data.total}</p>
+        `;
+
+        document.getElementById("modalCotizacion").classList.remove("modal-show");
+        document.getElementById("modalConfirmacion").classList.add("modal-show");
+
+    })
+    .catch(err => console.error("ERROR COTIZACION:", err));
+});
+document.getElementById("cerrarModalConfirmacion")?.addEventListener("click", function (e) {
+
+    e.preventDefault();
+
+    fetch('../api/clear-cart.php')
+        .then(res => res.json())
+        .then(() => {
+            
+            carrito = {};
+            document.getElementById("listaCarrito").innerHTML = "";
+            document.getElementById("contenedorItems").innerHTML = "";
+
+            document.getElementById("subtotal").innerText = "$0.00";
+            document.getElementById("descuento").innerText = "$0.00";
+            document.getElementById("iva").innerText = "$0.00";
+            document.getElementById("total").innerText = "$0.00";
+            actualizarContadorCarrito();
+
+            document.getElementById("modalConfirmacion").classList.remove("modal-show");
+            document.getElementById("modalCotizacion").classList.remove("modal-show");
+            document.getElementById("modalCarrito").classList.remove("modal-show");
+        });
+
+});
+
+
