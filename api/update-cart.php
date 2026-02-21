@@ -2,34 +2,34 @@
 session_start();
 header('Content-Type: application/json');
 
-if (!isset($_SESSION['cart'])) {
-    echo json_encode([
-        "cart" => [],
-        "subtotal" => 0,
-        "iva" => 0,
-        "total" => 0
-    ]);
-    exit;
-}
+require_once '../classes/Quote.class.php';
 
 $id  = (int)($_POST['id'] ?? 0);
 $qty = (int)($_POST['qty'] ?? 1);
 
-if (isset($_SESSION['cart'][$id])) {
-    $_SESSION['cart'][$id]['cantidad'] = max(1, min(10, $qty));
+if ($id <= 0) {
+
+    echo json_encode([
+        "error" => "ID inválido"
+    ]);
+    exit;
+
 }
 
-$subtotal = 0;
-foreach ($_SESSION['cart'] as $item) {
-    $subtotal += $item['precio'] * $item['cantidad'];
-}
+// crear quote desde sesión
+$quote = new Quote();
 
-$iva = $subtotal * 0.13;
-$total = $subtotal + $iva;
+// actualizar cantidad
+$quote->actualizarCantidad($id, $qty);
 
+// generar totales
+$resultado = $quote->generar();
+
+// retornar JSON
 echo json_encode([
-    "cart" => $_SESSION['cart'],
-    "subtotal" => $subtotal,
-    "iva" => $iva,
-    "total" => $total
+    "cart" => $resultado["items"],
+    "subtotal" => $resultado["subtotal"],
+    "descuento" => $resultado["descuento"],
+    "iva" => $resultado["iva"],
+    "total" => $resultado["total"]
 ]);

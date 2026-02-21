@@ -118,6 +118,9 @@ if (isset($_GET['onlyData'])) {
       <strong>Subtotal:</strong> <span id="subtotal">0</span>
     </div>
     <div class="d-flex justify-content-between">
+     <strong>Descuento:</strong><span id="descuento">$0</span>
+    </div>
+    <div class="d-flex justify-content-between">
       <strong>IVA (13%):</strong> <span id="iva">0</span>
     </div>
     <div class="d-flex justify-content-between fs-4">
@@ -180,7 +183,6 @@ if (isset($_GET['onlyData'])) {
 
 <script src="../assets/ajax.js"></script>
 <script src="../assets/service.js"></script>
-<script src="../assets/remove-from-cart.js"></script>
 
 </body>
 </html>

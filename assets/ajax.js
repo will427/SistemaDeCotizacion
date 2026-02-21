@@ -47,7 +47,7 @@ function addToCart(id){
         method: 'POST',
         headers: {'Content-Type':'application/x-www-form-urlencoded'},
         body: `id=${id}`
-    })
+    })    
     .then(res => res.json())
     .then(data => {
         carrito = data.cart;
@@ -57,10 +57,13 @@ function addToCart(id){
         document.getElementById("subtotal").innerText = "$" + data.subtotal.toFixed(2);
         document.getElementById("iva").innerText = "$" + data.iva.toFixed(2);
         document.getElementById("total").innerText = "$" + data.total.toFixed(2);
+        document.getElementById("descuento").innerText ="$" + data.descuento.toFixed(2);
 
         abrirModal();
     })
     .catch(err => console.error("ERROR:", err));
+
+    
 }
 
 

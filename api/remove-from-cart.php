@@ -2,26 +2,42 @@
 session_start();
 header('Content-Type: application/json');
 
-$id = $_POST['id'] ?? null;
+require_once '../classes/Quote.class.php';
 
-if($id && isset($_SESSION['cart'][$id])){
-    unset($_SESSION['cart'][$id]);
+$id = (int)($_POST['id'] ?? 0);
+
+if ($id <= 0) {
+
+    echo json_encode([
+        "error" => "ID inválido"
+    ]);
+    exit;
 }
 
-$subtotal = 0;
+// crear quote desde sesión
+$quote = new Quote();
 
-if(isset($_SESSION['cart'])){
-    foreach($_SESSION['cart'] as $item){
-        $subtotal += $item['precio'] * $item['cantidad'];
-    }
+// obtener items actuales
+$items = $quote->getItems();
+
+// eliminar solo ese item
+if (isset($items[$id])) {
+
+    unset($items[$id]);
+
+    // guardar cambios en sesión
+    $_SESSION['quote'] = $items;
+
 }
 
-$iva = $subtotal * 0.13;
-$total = $subtotal + $iva;
+// generar nuevos totales
+$quote = new Quote();
+$resultado = $quote->generar();
 
+// retornar JSON
 echo json_encode([
-    'cart' => $_SESSION['cart'] ?? [],
-    'subtotal' => $subtotal,
-    'iva' => $iva,
-    'total' => $total
+    "cart" => $resultado["items"],
+    "subtotal" => $resultado["subtotal"],
+    "iva" => $resultado["iva"],
+    "total" => $resultado["total"]
 ]);

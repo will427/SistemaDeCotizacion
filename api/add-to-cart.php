@@ -2,56 +2,59 @@
 session_start();
 header('Content-Type: application/json');
 
+require_once '../classes/Quote.class.php';
+require_once '../classes/Service.class.php';
+
 $_GET['onlyData'] = true;
 require_once '../pages/services-catalog.php';
 
-$id = intval($_POST['id'] ?? 0);
+$id = (int)($_POST['id'] ?? 0);
 
-if (!isset($_SESSION['cart'])) {
-    $_SESSION['cart'] = [];
-}
+if ($id <= 0) {
 
-$found = null;
-foreach ($services as $s) {
-    if ($s->getId() == $id) {
-        $found = $s;
-        break;
-    }
-}
-
-if (!$found) {
-    echo json_encode(['error' => 'No existe servicio']);
+    echo json_encode([
+        "error" => "ID inválido"
+    ]);
     exit;
 }
 
-if (!isset($_SESSION['cart'][$id])) {
-    $_SESSION['cart'][$id] = [
-        'id' => $found->getId(),
-        'nombre' => $found->getTitle(),
-        'precio' => $found->getPrice(),
-        'cantidad' => 1
-    ];
-} else {
-    if ($_SESSION['cart'][$id]['cantidad'] < 10) {
-        $_SESSION['cart'][$id]['cantidad']++;
+// buscar servicio
+$found = null;
+
+foreach ($services as $s) {
+
+    if ($s->getId() == $id) {
+
+        $found = $s;
+        break;
+
     }
+
 }
 
-$subtotal = 0;
-$items = 0;
+if (!$found) {
 
-foreach ($_SESSION['cart'] as $item) {
-    $subtotal += $item['precio'] * $item['cantidad'];
-    $items += $item['cantidad'];
+    echo json_encode([
+        "error" => "Servicio no encontrado"
+    ]);
+    exit;
+
 }
 
-$iva = $subtotal * 0.13;
-$total = $subtotal + $iva;
+// crear quote desde sesión
+$quote = new Quote();
 
+// agregar item
+$quote->agregarItem($found);
+
+// generar totales
+$resultado = $quote->generar();
+
+// retornar JSON
 echo json_encode([
-    'cart' => $_SESSION['cart'],
-    'subtotal' => $subtotal,
-    'iva' => $iva,
-    'total' => $total,
-    'items' => $items
+    "cart" => $resultado["items"],
+    "subtotal" => $resultado["subtotal"],
+    "descuento" => $resultado["descuento"],
+    "iva" => $resultado["iva"],
+    "total" => $resultado["total"]
 ]);
