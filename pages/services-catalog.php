@@ -1,3 +1,4 @@
+
 <?php
     include_once '../classes/Service.class.php';
   $services= [
@@ -88,7 +89,7 @@ if (isset($_GET['onlyData'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
-    <link rel="stylesheet" href="../assets/styles.css">
+    <link rel="stylesheet" href="../assets/css/styles.css">
     <!-- Bootstrap icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
     <!-- Font Awesome icons -->
@@ -97,15 +98,20 @@ if (isset($_GET['onlyData'])) {
 </head>
 <body>
 
-    <header class="m-2 ">
+    <header class="my-2 ">
         <div class="container-lg  justify-content-between d-flex align-items-center">
-            <h1 class="">Titulo</h1>
-            <div class="">
-                <button type="button" class="btn btn-warning btn-lg px-60" id="abrirCarrito">
+            <h1 class="">Sistema de cotizaciones</h1>
+            <div class="d-flex align-items-center">
+              <a href="view-quotes.php" class="me-2 btn btn-outline-primary btn-lg">
+                  <i class="bi bi-file-earmark-text "></i>
+                  Cotizaciones
+              </a> 
+              <button type="button" class="btn btn-warning btn-lg px-60" id="abrirCarrito">
                     <i class="bi bi-cart-fill"></i>
                     <span id="contadorCarrito"
                     class=" translate-middle badge rounded-pill  d-none p-0 m-0">0</span>
                 </button>
+
             </div>
         </div>
     </header>
@@ -179,7 +185,6 @@ if (isset($_GET['onlyData'])) {
     <div class="close" id="cerrarModalConfirmacion">
       <i class="bi bi-x-circle-fill"></i>
     </div>
-
     <div id="detalleConfirmacion"></div>
   </div>
 </section>
@@ -235,8 +240,8 @@ if (isset($_GET['onlyData'])) {
     </div>
     
 
-<script src="../assets/ajax.js"></script>
-<script src="../assets/service.js"></script>
+<script src="../assets/js/ajax.js"></script>
+<script src="../assets/js/service.js"></script>
 
 </body>
 </html>
