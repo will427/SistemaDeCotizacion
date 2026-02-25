@@ -34,6 +34,18 @@ $codigo = "COT-$year-$consecutivo";
 $fecha_generacion = date("Y-m-d");
 $fecha_validez = date("Y-m-d", strtotime("+7 days"));
 
+if (!isset($_SESSION['historial_cotizaciones'])) {
+    $_SESSION['historial_cotizaciones'] = [];
+}
+
+$_SESSION['historial_cotizaciones'][] = [
+    "codigo" => $codigo,
+    "cliente" => $nombre,
+    "fecha" => $fecha_generacion,
+    "total" => number_format($data["total"], 2),
+    "cantidad" => count($data["items"])
+];
+
 // ===== RESPUESTA =====
 echo json_encode([
     "codigo" => $codigo,

@@ -1,3 +1,10 @@
+<?php session_start();
+if (isset($_POST['vaciar_historial'])) {
+    unset($_SESSION['historial_cotizaciones']);
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -20,7 +27,12 @@
         </a>
     </div>
 
- 
+ <form method="POST">
+    <button type="submit" name="vaciar_historial" 
+            style="background:red;color:white;padding:8px;border:none;border-radius:5px;">
+        Vaciar Historial
+    </button>
+</form>
     <!-- Visible desde md hacia arriba -->
     <div class="table-responsive d-none d-md-block">
 
@@ -34,27 +46,27 @@
                     <th>Cantidad de Servicios</th>
                 </tr>
             </thead>
-            <tbody>
+<tbody>
 
-                <!-- EJEMPLO 1 -->
-                <tr>
-                    <td>COT-001</td>
-                    <td>Juan Pérez</td>
-                    <td>2026-02-24</td>
-                    <td>$250.00</td>
-                    <td>3</td>
-                </tr>
+<?php if (!empty($_SESSION['historial_cotizaciones'])): ?>
 
-                <!-- EJEMPLO 2 -->
-                <tr>
-                    <td>COT-002</td>
-                    <td>Empresa XYZ</td>
-                    <td>2026-02-23</td>
-                    <td>$480.00</td>
-                    <td>5</td>
-                </tr>
+    <?php foreach ($_SESSION['historial_cotizaciones'] as $cot): ?>
+        <tr>
+            <td><?= $cot['codigo'] ?></td>
+            <td><?= $cot['cliente'] ?></td>
+            <td><?= $cot['fecha'] ?></td>
+            <td>$<?= $cot['total'] ?></td>
+            <td><?= $cot['cantidad'] ?></td>
+        </tr>
+    <?php endforeach; ?>
 
-            </tbody>
+<?php else: ?>
+    <tr>
+        <td colspan="5" class="text-center">No hay cotizaciones aún</td>
+    </tr>
+<?php endif; ?>
+
+</tbody>
         </table>
 
     </div>
