@@ -1,6 +1,28 @@
 let carrito = {};
+
+/* ================================
+   DOMContentLoaded
+================================ */
 document.addEventListener("DOMContentLoaded", () => {
-cargarCarritoInicial();
+
+    cargarCarritoInicial();
+
+    // Carga inicial de servicios
+    cargarServicios("Informática");
+
+    // Filtros
+    document.querySelectorAll(".filtro").forEach(btn => {
+        btn.addEventListener("click", () => {
+            cargarServicios(btn.dataset.cat);
+        });
+    });
+
+});
+
+/* ================================
+   SERVICIOS
+================================ */
+
 function cargarServicios(cat) {
     fetch(`services-catalog.php?ajax=1&cat=${encodeURIComponent(cat)}`)
         .then(res => res.json())
@@ -15,57 +37,56 @@ function renderServicios(servicios) {
 
     servicios.forEach(service => {
         contenedor.innerHTML += `
-       <div class="col-md-4 col-lg-6 col-xl-4 col-5 my-2 d-flex">
-                                    <div class="card border-1 rounded-3 shadow-sm h-100 w-100">
-                                        <div class="card-body text-center py-3 align-items-center d-flex flex-column">
-                                            <h4 class="card-title">${service.title}</h4>
-                                            <p class="lead card-subtitle">${service.subtitle}</p>
-                                            <p class="display-5 my-4 text-primary fw-bold">$${service.price}</p>
-                                            <p class="card-text mx-5 text-muted d-none d-lg-block">
-                                                ${service.description}
-                                            </p>
-                                            <a href="#" class="btn btn-outline-primary btn-lg mt-auto" onclick="addToCart(${service.id}); return false;">agregar</a>
-                                        </div>
-                                    </div>
-                                </div>`;
+        <div class="col-md-4 col-lg-6 col-xl-4 col-5 my-2 d-flex">
+            <div class="card border-1 rounded-3 shadow-sm h-100 w-100">
+                <div class="card-body text-center py-3 align-items-center d-flex flex-column">
+                    <h4 class="card-title">${service.title}</h4>
+                    <p class="lead card-subtitle">${service.subtitle}</p>
+                    <p class="display-5 my-4 text-primary fw-bold">$${service.price}</p>
+                    <p class="card-text mx-5 text-muted d-none d-lg-block">
+                        ${service.description}
+                    </p>
+                    <a href="#" class="btn btn-outline-primary btn-lg mt-auto"
+                       onclick="addToCart(${service.id}); return false;">
+                       agregar
+                    </a>
+                </div>
+            </div>
+        </div>`;
     });
 }
 
-// filtros
-document.querySelectorAll(".filtro").forEach(btn => {
-    btn.addEventListener("click", () => {
-        cargarServicios(btn.dataset.cat);
-    });
-});
+/* ================================
+   CARRITO - AGREGAR
+================================ */
 
-// carga inicial
-cargarServicios("Informática");
-
-});
-function addToCart(id){
+function addToCart(id) {
     fetch('../api/add-to-cart.php', {
         method: 'POST',
-        headers: {'Content-Type':'application/x-www-form-urlencoded'},
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: `id=${id}`
-    })    
+    })
     .then(res => res.json())
     .then(data => {
         carrito = data.cart;
+
         renderCarrito();
         renderSeleccionados();
         actualizarContadorCarrito();
+
         document.getElementById("subtotal").innerText = "$" + data.subtotal.toFixed(2);
         document.getElementById("iva").innerText = "$" + data.iva.toFixed(2);
         document.getElementById("total").innerText = "$" + data.total.toFixed(2);
-        document.getElementById("descuento").innerText ="$" + data.descuento.toFixed(2);
+        document.getElementById("descuento").innerText = "$" + data.descuento.toFixed(2);
 
         abrirModal();
     })
     .catch(err => console.error("ERROR:", err));
-
-    
 }
 
+/* ================================
+   RENDER CARRITO
+================================ */
 
 function renderCarrito() {
     const contenedor = document.getElementById("listaCarrito");
@@ -75,28 +96,27 @@ function renderCarrito() {
         const sub = item.precio * item.cantidad;
 
         contenedor.innerHTML += `
-    <div class="d-flex justify-content-between align-items-center border-bottom py-2">
-        <div>
-            <strong>${item.nombre}</strong><br>
-            $${item.precio} x 
-            <input type="number" min="1" max="10" value="${item.cantidad}"
-                onchange="updateQty(${item.id}, this.value)"
-                class="form-control d-inline-block w-25">
-        </div>
+        <div class="d-flex justify-content-between align-items-center border-bottom py-2">
+            <div>
+                <strong>${item.nombre}</strong><br>
+                $${item.precio} x 
+                <input type="number" min="1" max="10" value="${item.cantidad}"
+                    onchange="updateQty(${item.id}, this.value)"
+                    class="form-control d-inline-block w-25">
+            </div>
 
-        <div class="text-end">
-            <span>$${sub.toFixed(2)}</span><br>
-            <button class="btn btn-sm btn-danger mt-1"
-                onclick="removeFromCart(${item.id})">
-                Eliminar
-            </button>
-        </div>
-    </div>
-`;
+            <div class="text-end">
+                <span>$${sub.toFixed(2)}</span><br>
+                <button class="btn btn-sm btn-danger mt-1"
+                    onclick="removeFromCart(${item.id})">
+                    Eliminar
+                </button>
+            </div>
+        </div>`;
     });
 }
-function renderSeleccionados() {
 
+function renderSeleccionados() {
     const contenedor = document.getElementById("contenedorItems");
     const btn = document.getElementById("btnVerCarrito");
 
@@ -111,24 +131,23 @@ function renderSeleccionados() {
 
     items.forEach(item => {
         contenedor.innerHTML += `
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-                <div class="ms-2 me-auto">
-                    <div class="fw-bold">
-                        ${item.nombre}
-                        <span class="badge bg-primary rounded-pill">
-                            x${item.cantidad}
-                        </span>
-                    </div>
-                    $${item.precio}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            <div class="ms-2 me-auto">
+                <div class="fw-bold">
+                    ${item.nombre}
+                    <span class="badge bg-primary rounded-pill">
+                        x${item.cantidad}
+                    </span>
                 </div>
-            </li>
-        `;
+                $${item.precio}
+            </div>
+        </li>`;
     });
 
     btn.classList.remove("d-none");
 }
-function actualizarContadorCarrito(){
 
+function actualizarContadorCarrito() {
     let totalItems = 0;
 
     Object.values(carrito).forEach(item => {
@@ -137,11 +156,10 @@ function actualizarContadorCarrito(){
 
     const badge = document.getElementById("contadorCarrito");
 
-    if(badge){
+    if (badge) {
         badge.innerText = totalItems;
 
-        // ocultar si está vacío
-        if(totalItems === 0){
+        if (totalItems === 0) {
             badge.classList.add("d-none");
         } else {
             badge.classList.remove("d-none");
@@ -149,27 +167,21 @@ function actualizarContadorCarrito(){
     }
 }
 
-function abrirModal(){
-    document.getElementById("modalCarrito").classList.add("show");
-}
+/* ================================
+   ACTUALIZAR / ELIMINAR
+================================ */
 
-document.getElementById("cerrarModal").addEventListener("click", () => {
-    document.getElementById("modalCarrito").classList.remove("show");
-});
-
-function updateQty(id, qty){
-
+function updateQty(id, qty) {
     fetch('../api/update-cart.php', {
         method: 'POST',
-        headers: {'Content-Type':'application/x-www-form-urlencoded'},
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: `id=${id}&qty=${qty}`
     })
     .then(res => res.json())
     .then(data => {
-
         carrito = data.cart;
-        renderCarrito();
 
+        renderCarrito();
         renderSeleccionados();
         actualizarContadorCarrito();
 
@@ -182,15 +194,14 @@ function updateQty(id, qty){
         if (iva) iva.innerText = "$" + data.iva.toFixed(2);
         if (total) total.innerText = "$" + data.total.toFixed(2);
         if (descuento) descuento.innerText = "$" + data.descuento.toFixed(2);
-
     })
     .catch(err => console.error("ERROR UPDATE:", err));
 }
 
-function removeFromCart(id){
+function removeFromCart(id) {
     fetch('../api/remove-from-cart.php', {
         method: 'POST',
-        headers: {'Content-Type':'application/x-www-form-urlencoded'},
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: `id=${id}`
     })
     .then(res => res.json())
@@ -207,6 +218,11 @@ function removeFromCart(id){
     })
     .catch(err => console.error("ERROR:", err));
 }
+
+/* ================================
+   CARGAR CARRITO INICIAL
+================================ */
+
 function cargarCarritoInicial() {
     fetch('../api/get-list-items.php')
         .then(res => res.json())
@@ -224,7 +240,11 @@ function cargarCarritoInicial() {
         .catch(err => console.error("Error cargando carrito:", err));
 }
 
-document.getElementById("formCotizacion").addEventListener("submit", function(e){
+/* ================================
+   FORMULARIO COTIZACIÓN
+================================ */
+
+document.getElementById("formCotizacion").addEventListener("submit", function(e) {
     e.preventDefault();
 
     const formData = new FormData(this);
@@ -236,7 +256,7 @@ document.getElementById("formCotizacion").addEventListener("submit", function(e)
     .then(res => res.json())
     .then(data => {
 
-        if(data.error){
+        if (data.error) {
             alert(data.error);
             return;
         }
@@ -245,11 +265,10 @@ document.getElementById("formCotizacion").addEventListener("submit", function(e)
 
         Object.values(data.items).forEach(item => {
             itemsHTML += `
-                <div class="d-flex justify-content-between border-bottom py-1">
-                    <span>${item.nombre} (x${item.cantidad})</span>
-                    <span>$${(item.precio * item.cantidad).toFixed(2)}</span>
-                </div>
-            `;
+            <div class="d-flex justify-content-between border-bottom py-1">
+                <span>${item.nombre} (x${item.cantidad})</span>
+                <span>$${(item.precio * item.cantidad).toFixed(2)}</span>
+            </div>`;
         });
 
         document.getElementById("detalleConfirmacion").innerHTML = `
@@ -271,19 +290,24 @@ document.getElementById("formCotizacion").addEventListener("submit", function(e)
 
         document.getElementById("modalCotizacion").classList.remove("modal-show");
         document.getElementById("modalConfirmacion").classList.add("modal-show");
-
     })
     .catch(err => console.error("ERROR COTIZACION:", err));
 });
-document.getElementById("cerrarModalConfirmacion")?.addEventListener("click", function (e) {
+
+/* ================================
+   LIMPIAR CARRITO AL CONFIRMAR
+================================ */
+
+document.getElementById("cerrarModalConfirmacion")?.addEventListener("click", function(e) {
 
     e.preventDefault();
 
     fetch('../api/clear-cart.php')
         .then(res => res.json())
         .then(() => {
-            
+
             carrito = {};
+
             document.getElementById("listaCarrito").innerHTML = "";
             document.getElementById("contenedorItems").innerHTML = "";
 
@@ -291,12 +315,12 @@ document.getElementById("cerrarModalConfirmacion")?.addEventListener("click", fu
             document.getElementById("descuento").innerText = "$0.00";
             document.getElementById("iva").innerText = "$0.00";
             document.getElementById("total").innerText = "$0.00";
+
             actualizarContadorCarrito();
 
             document.getElementById("modalConfirmacion").classList.remove("modal-show");
             document.getElementById("modalCotizacion").classList.remove("modal-show");
             document.getElementById("modalCarrito").classList.remove("modal-show");
         });
-
 });
 

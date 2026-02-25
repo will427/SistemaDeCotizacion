@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const openModal = document.querySelector('.btn.btn-warning.btn-lg.px-60');
     const openModal2 = document.getElementById("btnVerCarrito");
     const btnCotizar = document.getElementById("btnCotizar");
-
+    
     const closeCarrito = document.getElementById("cerrarModal");
     const closeCotizacion = document.getElementById("cerrarModalCotizacion");
 
