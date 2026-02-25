@@ -2,25 +2,22 @@
 session_start();
 header('Content-Type: application/json');
 
-if (!isset($_SESSION['cart'])) {
-    $_SESSION['cart'] = [];
+require_once '../classes/Quote.class.php';
+
+$quote = new Quote();
+$resultado = $quote->generar();
+
+// contar items (suma de cantidades)
+$itemsCount = 0;
+foreach ($resultado['items'] as $item) {
+    $itemsCount += $item['cantidad'];
 }
-
-$subtotal = 0;
-$items = 0;
-
-foreach ($_SESSION['cart'] as $item) {
-    $subtotal += $item['precio'] * $item['cantidad'];
-    $items += $item['cantidad'];
-}
-
-$iva = $subtotal * 0.13;
-$total = $subtotal + $iva;
 
 echo json_encode([
-    'cart' => $_SESSION['cart'],
-    'subtotal' => $subtotal,
-    'iva' => $iva,
-    'total' => $total,
-    'items' => $items
+    "cart" => $resultado["items"],
+    "subtotal" => $resultado["subtotal"],
+    "descuento" => $resultado["descuento"],
+    "iva" => $resultado["iva"],
+    "total" => $resultado["total"],
+    "items" => $itemsCount
 ]);
