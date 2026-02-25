@@ -38,7 +38,7 @@ $resultado = $quote->generar();
 echo json_encode([
     "cart" => $resultado["items"],
     "subtotal" => $resultado["subtotal"],
+    "descuento" => $resultado["descuento"],
     "iva" => $resultado["iva"],
     "total" => $resultado["total"]
 ]);
-
