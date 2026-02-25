@@ -211,15 +211,21 @@ function cargarCarritoInicial() {
     fetch('../api/get-list-items.php')
         .then(res => res.json())
         .then(data => {
-            carrito = data.cart;
+            carrito = data.cart || {};
 
             renderSeleccionados();
             renderCarrito();
             actualizarContadorCarrito();
 
-            document.getElementById("subtotal").innerText = "$" + data.subtotal.toFixed(2);
-            document.getElementById("iva").innerText = "$" + data.iva.toFixed(2);
-            document.getElementById("total").innerText = "$" + data.total.toFixed(2);
+            const elSubtotal = document.getElementById("subtotal");
+            const elIva = document.getElementById("iva");
+            const elTotal = document.getElementById("total");
+            const elDescuento = document.getElementById("descuento");
+
+            if (elSubtotal) elSubtotal.innerText = "$" + (data.subtotal ?? 0).toFixed(2);
+            if (elIva) elIva.innerText = "$" + (data.iva ?? 0).toFixed(2);
+            if (elTotal) elTotal.innerText = "$" + (data.total ?? 0).toFixed(2);
+            if (elDescuento) elDescuento.innerText = "$" + (data.descuento ?? 0).toFixed(2);
         })
         .catch(err => console.error("Error cargando carrito:", err));
 }
