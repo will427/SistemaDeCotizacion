@@ -1,63 +1,95 @@
 document.addEventListener("DOMContentLoaded", () => {
 
+    /* ================================
+       REFERENCIAS A ELEMENTOS
+    ================================= */
+
     const modalCarrito = document.getElementById("modalCarrito");
     const modalCotizacion = document.getElementById("modalCotizacion");
 
     const openModal = document.querySelector('.btn.btn-warning.btn-lg.px-60');
     const openModal2 = document.getElementById("btnVerCarrito");
+
     const btnCotizar = document.getElementById("btnCotizar");
-    
+
     const closeCarrito = document.getElementById("cerrarModal");
     const closeCotizacion = document.getElementById("cerrarModalCotizacion");
 
-    function abrir(modal){
-        if(modal) modal.classList.add("modal-show");
+
+    /* ================================
+       FUNCIONES AUXILIARES
+    ================================= */
+
+    function abrir(modal) {
+        if (modal) modal.classList.add("modal-show");
     }
 
-    function cerrar(modal){
-        if(modal) modal.classList.remove("modal-show");
+    function cerrar(modal) {
+        if (modal) modal.classList.remove("modal-show");
     }
 
-    // ===== ABRIR CARRITO DESDE ICONO =====
+
+    /* ================================
+       ABRIR MODAL CARRITO
+    ================================= */
+
+    // Desde ícono principal
     openModal?.addEventListener("click", () => {
         abrir(modalCarrito);
     });
 
-    // ===== ABRIR CARRITO DESDE BOTÓN LATERAL =====
+    // Desde botón lateral
     openModal2?.addEventListener("click", () => {
         abrir(modalCarrito);
     });
 
-    // ===== CERRAR CARRITO =====
+
+    /* ================================
+       CERRAR MODAL CARRITO
+    ================================= */
+
     closeCarrito?.addEventListener("click", (e) => {
         e.preventDefault();
         cerrar(modalCarrito);
     });
 
-   document.getElementById("btnCotizar")?.addEventListener("click", function (e) {
 
-    e.preventDefault();
+    /* ================================
+       BOTÓN COTIZAR
+    ================================= */
 
-    let total = parseFloat(document.getElementById("total").innerText.replace("$", ""));
-    let cantidadItems = Object.values(carrito).length;
+    btnCotizar?.addEventListener("click", function (e) {
 
-    if (cantidadItems === 0) {
-        alert("No puedes cotizar sin items en el carrito.");
-        return;
-    }
+        e.preventDefault();
 
-    if (total < 100) {
-        alert("El total debe ser mayor o igual a $100 para cotizar.");
-        return;
-    }
+        let total = parseFloat(
+            document.getElementById("total").innerText.replace("$", "")
+        );
 
-    // cerrar carrito
-    document.getElementById("modalCarrito").classList.remove("modal-show");
+        let cantidadItems = Object.values(carrito).length;
 
-    // abrir cotización
-    document.getElementById("modalCotizacion").classList.add("modal-show");
+        if (cantidadItems === 0) {
+            alert("No puedes cotizar sin items en el carrito.");
+            return;
+        }
 
-});
+        if (total < 100) {
+            alert("El total debe ser mayor o igual a $100 para cotizar.");
+            return;
+        }
+
+        // Cerrar carrito
+        cerrar(modalCarrito);
+
+        // Abrir cotización
+        abrir(modalCotizacion);
+
+    });
+
+
+    /* ================================
+       CERRAR MODAL COTIZACIÓN
+    ================================= */
 
     closeCotizacion?.addEventListener("click", (e) => {
         e.preventDefault();
